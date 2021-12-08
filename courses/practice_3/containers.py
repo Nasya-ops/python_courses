@@ -89,5 +89,8 @@ def merge_set(my_dict, ann_dict):
 set_merger = merge_set(myDictionary, annDictionary)
 print(set_merger)
 
+# An example of a short implementation of your merge_set function
+print(set(myDictionary.keys()).union(set(annDictionary)))
+
 
 
