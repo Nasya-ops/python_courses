@@ -1,6 +1,7 @@
 import sys
 import json
 import socket
+from json import JSONDecodeError
 
 server_socket = socket.socket()
 
@@ -24,9 +25,11 @@ while True:
         count += 1
         print(f"Accepted {count} {client_address} connections so far")
         while True:
-            data = client_connection.recv(1024)
-            if data != b'':
-                print(json.loads(data.decode()))
+            try:
+                data = client_connection.recv(1024)
+            except JSONDecodeError:
+                if data != b'':
+                    print(json.loads(data.decode()))
                 msg1 = "Hi Client! Read everything you sent".encode()
                 msg2 = "Now I will close your connection".encode()
                 client_connection.send(msg1)
